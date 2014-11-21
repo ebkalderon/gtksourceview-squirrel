@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ GtkSourceView syntax file for Squirrel (http://www.squirrel-lang.org/)
+ 
+ Copyright (C) 2014 Eyal Kalderon <ebkalderon@gmail.com>
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+
+-->
+<language id="squirrel" _name="Squirrel" version="2.0" _section="Script">
+  <metadata>
+    <property name="mimetypes">text/x-squirrel</property> <!-- Questionable MIME type-->
+    <property name="globs">*.nut</property>
+    <property name="line-comment-start">//</property>
+    <property name="block-comment-start">/*</property>
+    <property name="block-comment-end">*/</property>
+  </metadata>
+
+  <styles>
+    <style id="boolean"    _name="Boolean Value"       map-to="def:boolean"/>
+    <style id="escape"     _name="Escaped Character"   map-to="def:special-char"/>
+    <style id="function"   _name="Function"            map-to="def:function"/>
+    <style id="keyword"    _name="Keyword"             map-to="def:keyword"/>
+    <style id="null-value" _name="Null Value"          map-to="def:special-constant"/>
+    <style id="reserved"   _name="Reserved Identifier" map-to="def:keyword"/>
+    <style id="statement"  _name="Statement"           map-to="def:statement"/>
+    <style id="string"     _name="String"              map-to="def:string"/>
+  </styles>
+
+  <definitions>
+    <context id="boolean" style-ref="boolean">
+       <keyword>false</keyword>
+       <keyword>true</keyword>
+    </context>
+
+    <context id="squirrel-escape" style-ref="escape">
+       <match>\\(\d\d?\d?|.)</match>
+    </context>
+
+    <context id="functions" style-ref="function">
+      <keyword>array</keyword>
+      <keyword>assert</keyword>
+      <keyword>collectgarbage</keyword>
+      <keyword>compilestring</keyword>
+      <keyword>error</keyword>
+      <keyword>find</keyword>
+      <keyword>getconsttable</keyword>
+      <keyword>getdelegate</keyword>
+      <keyword>getroottable</keyword>
+      <keyword>getstackinfos</keyword>
+      <keyword>len</keyword>
+      <keyword>newthread</keyword>
+      <keyword>print</keyword>
+      <keyword>resurrectunreachable</keyword>
+      <keyword>setdebughook</keyword>
+      <keyword>setdelegate</keyword>
+      <keyword>seterrorhandler</keyword>
+      <keyword>slice</keyword>
+      <keyword>tochar</keyword>
+      <keyword>tofloat</keyword>
+      <keyword>tointeger</keyword>
+      <keyword>tolower</keyword>
+      <keyword>tostring</keyword>
+      <keyword>toupper</keyword>
+      <keyword>type</keyword>
+      <keyword>weakref</keyword>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>base</keyword>
+      <keyword>case</keyword>
+      <keyword>catch</keyword>
+      <keyword>class</keyword>
+      <keyword>clone</keyword>
+      <keyword>const</keyword>
+      <keyword>constructor</keyword>
+      <keyword>default</keyword>
+      <keyword>delegate</keyword>
+      <keyword>delete</keyword>
+      <keyword>do</keyword>
+      <keyword>else</keyword>
+      <keyword>enum</keyword>
+      <keyword>for</keyword>
+      <keyword>foreach</keyword>
+      <keyword>function</keyword>
+      <keyword>if</keyword>
+      <keyword>in</keyword>
+      <keyword>instanceof</keyword>
+      <keyword>local</keyword>
+      <keyword>switch</keyword>
+      <keyword>this</keyword>
+      <keyword>try</keyword>
+      <keyword>typeof</keyword>
+      <keyword>while</keyword>
+      <keyword>yield</keyword>
+    </context>
+
+    <context id="null-value" style-ref="null-value">
+       <keyword>null</keyword>
+    </context>
+
+    <context id="squirrel-reserved" style-ref="reserved">
+      <keyword>_[A-Z][A-Za-z0-9_]*</keyword>
+    </context>
+
+    <context id="statements" style-ref="statement">
+      <keyword>break</keyword>
+      <keyword>continue</keyword>
+      <keyword>resume</keyword>
+      <keyword>return</keyword>
+      <keyword>throw</keyword>
+    </context>
+
+    <context id="string" style-ref="string" end-at-line-end="true" class="string" class-disabled="no-spell-check">
+      <start>["']</start>
+      <end>\%{0@start}</end>
+      <include>
+        <context ref="squirrel-escape"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <!--
+    
+      There is a bug in verbatim string literals in both this file, in
+      csharp.lang, and others which use a similar scheme. If you use doubled
+      unescaped quotes in a string literal (as permitted by the language) like
+      this:
+         
+      local string = @"Hi there!
+          See? I said ""hi there"".
+          Pretty nifty, right?
+      "
+    
+      the text `Pretty nifty, right?` is left unhighlighted. Currently, there
+      are no known workarounds for this bug, but hopefully it can be fixed
+      in the near future.
+    
+    -->
+    <context id="multi-line-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>@["']</start>
+      <end>["']</end>
+      <include>
+        <context ref="squirrel-escape"/>
+      </include>
+    </context>
+
+    <context id="squirrel" class="no-spell-check">
+      <include>
+        <context ref="def:shebang"/>
+        <context ref="def:c-like-comment"/>
+        <context ref="def:c-like-comment-multiline"/>
+        <context ref="def:c-like-close-comment-outside-comment"/>
+        <context ref="def:decimal"/>
+	<context ref="def:float"/>
+	<context ref="def:hexadecimal"/>
+	<context ref="def:octal"/>
+	<context ref="def:shell-like-comment"/>
+        <context ref="boolean"/>
+        <context ref="functions"/>
+        <context ref="keywords"/>
+        <context ref="multi-line-string"/>
+        <context ref="null-value"/>
+        <context ref="squirrel-reserved"/>
+        <context ref="statements"/>
+        <context ref="string"/>
+      </include>
+    </context>
+
+  </definitions>
+</language>
