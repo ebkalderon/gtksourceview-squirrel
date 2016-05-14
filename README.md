@@ -14,7 +14,7 @@ Simply copy `squirrel.lang` to any of the following directories:
 Then restart your editor(s).
 
 ##License
-Copyright (C) 2014 Eyal Kalderon <ebkalderon@gmail.com>
+Copyright (C) 2014 Eyal Kalderon
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
