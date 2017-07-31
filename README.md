@@ -1,10 +1,11 @@
+# gtksourceview-squirrel 
 
-#gtksourceview-squirrel 
-**squirrel.lang** enables editors based upon GtkSourceView 2.0 and 3.0, such as [Gedit](https://en.wikipedia.org/wiki/Gedit) and [Geany](https://en.wikipedia.org/wiki/Geany), to have syntax highlighting support for [Squirrel](http://www.squirrel-lang.org/), a fast and lightweight game scripting language and VM originally based on [Lua](http://www.lua.org/).
+This GtkSourceView language schema provides syntax highlighting support for [Squirrel](http://www.squirrel-lang.org/), a fast and lightweight game scripting language and VM originally based on [Lua](http://www.lua.org/). This should be compatible with all editors based on GtkSourceView 2.0 or 3.0, such as [Gedit](https://en.wikipedia.org/wiki/Gedit) and [Geany](https://en.wikipedia.org/wiki/Geany).
 
 ![Alt text](screenshot.png "Squirrel script in Gedit (Solarized Dark)")
 
-##Installation
+## Installation
+
 Simply copy `squirrel.lang` to any of the following directories:
  * `~/.local/share/gtksourceview-2.0/language-specs`
  * `~/.local/share/gtksourceview-3.0/language-specs`
@@ -13,7 +14,8 @@ Simply copy `squirrel.lang` to any of the following directories:
 
 Then restart your editor(s).
 
-##License
+## License
+
 Copyright (C) 2014 Eyal Kalderon
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
